@@ -32,8 +32,8 @@ pipelineConfig:
               - -f
               - /builder/home/basic-auth-user.json
           - command: export
-              args:
-                - CHARTMUSEUM_CREDS_USR=`cat /builder/home/basic-auth-pass.json`
+            args:
+              - CHARTMUSEUM_CREDS_USR=`cat /builder/home/basic-auth-pass.json`
           - image: jenkinsxio/jx:1.3.963
             command: jx
             args:
