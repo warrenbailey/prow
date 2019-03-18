@@ -1,7 +1,6 @@
 CHART_REPO := http://jenkins-x-chartmuseum:8080
 NAME := prow
 OS := $(shell uname)
-VERSION := $(shell cat ./VERSION)
 
 init: 
 	helm init --client-only
