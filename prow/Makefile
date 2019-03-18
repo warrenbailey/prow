@@ -2,7 +2,7 @@ CHART_REPO := http://jenkins-x-chartmuseum:8080
 NAME := prow
 OS := $(shell uname)
 
-CHARTMUSEUM_CREDS_USR := `cat /builder/home/basic-auth-pass.json`
+CHARTMUSEUM_CREDS_USR := `cat /builder/home/basic-auth-user.json`
 CHARTMUSEUM_CREDS_PSW := `cat /builder/home/basic-auth-pass.json`
 
 init: 
@@ -16,10 +16,10 @@ build: clean setup
 	helm lint prow
 
 install: clean build
-	helm upgrade ${NAME} . --install prow
+	helm upgrade ${NAME} prow --install
 
 upgrade: clean build
-	helm upgrade ${NAME} . --install prow
+	helm upgrade ${NAME} prow --install
 
 delete:
 	helm delete --purge ${NAME} prow
@@ -38,6 +38,6 @@ else ifeq ($(OS),Linux)
 else
 	exit -1
 endif
-	helm package . prow
+	helm package prow
 	curl --fail -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(VERSION).tgz" $(CHART_REPO)/api/charts
 	rm -rf ${NAME}*.tgz
