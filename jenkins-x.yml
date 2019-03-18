@@ -45,3 +45,5 @@ pipelineConfig:
           - command: make
             args:
             - release
+            - -f
+            - /workspace/workspace/prow/Makefile
