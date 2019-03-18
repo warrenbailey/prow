@@ -10,29 +10,29 @@ setup: init
 	helm repo add jenkins-x http://chartmuseum.jenkins-x.io 	
 
 build: clean setup
-	helm dependency build
-	helm lint
+	helm dependency build prow
+	helm lint prow
 
 install: clean build
-	helm upgrade ${NAME} . --install
+	helm upgrade ${NAME} . --install prow
 
 upgrade: clean build
-	helm upgrade ${NAME} . --install
+	helm upgrade ${NAME} . --install prow
 
 delete:
-	helm delete --purge ${NAME}
+	helm delete --purge ${NAME} prow
 
 clean:
-	rm -rf charts
-	rm -rf ${NAME}*.tgz
-	rm -rf requirements.lock
+	rm -rf prow/charts
+	rm -rf prow/${NAME}*.tgz
+	rm -rf prow/requirements.lock
 
 release: clean build
 ifeq ($(OS),Darwin)
-	sed -i "" -e "s/version:.*/version: $(VERSION)/" Chart.yaml
+	sed -i "" -e "s/version:.*/version: $(VERSION)/" prow/Chart.yaml
 
 else ifeq ($(OS),Linux)
-	sed -i -e "s/version:.*/version: $(VERSION)/" Chart.yaml
+	sed -i -e "s/version:.*/version: $(VERSION)/" prow/Chart.yaml
 else
 	exit -1
 endif

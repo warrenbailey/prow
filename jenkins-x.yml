@@ -12,9 +12,9 @@ pipelineConfig:
             args:
             - -laR
           - command: pwd
-          - command: cat
+          - command: cd
             args:
-            - /workspace/workspace/prow/Makefile
+            - /workspace/workspace/prow
           - command: make
             args:
             - build
