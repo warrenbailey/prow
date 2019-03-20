@@ -1,6 +1,7 @@
 CHART_REPO := http://jenkins-x-chartmuseum:8080
 NAME := prow
 OS := $(shell uname)
+
 CHARTMUSEUM_CREDS_USR := $(shell cat /builder/home/basic-auth-user.json)
 CHARTMUSEUM_CREDS_PSW := $(shell cat /builder/home/basic-auth-pass.json)
 
@@ -29,7 +30,6 @@ clean:
 	rm -rf prow/requirements.lock
 
 release: clean build
-
 ifeq ($(OS),Darwin)
 	sed -i "" -e "s/version:.*/version: $(VERSION)/" prow/Chart.yaml
 
